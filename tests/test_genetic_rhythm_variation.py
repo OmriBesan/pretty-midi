@@ -122,6 +122,30 @@ def test_large_4_by_8_drum_matrix_distance_and_fitness():
     assert rhythm_fitness(target, candidate) == pytest.approx(29 / 32)
 
 
+def test_hamming_distance_large_random_input_against_direct_count():
+    import random
+
+    random.seed(123)
+
+    target = [random.randint(0, 1) for _ in range(1000)]
+    candidate = [random.randint(0, 1) for _ in range(1000)]
+
+    expected = sum(1 for a, b in zip(target, candidate) if a != b)
+
+    assert hamming_distance(target, candidate) == expected
+
+def test_rhythm_fitness_large_random_input_property():
+    import random
+
+    random.seed(456)
+
+    target = [random.randint(0, 1) for _ in range(1000)]
+    candidate = [random.randint(0, 1) for _ in range(1000)]
+
+    fitness = rhythm_fitness(target, candidate)
+
+    assert 0.0 <= fitness <= 1.0
+
 def test_generate_rhythm_variation_returns_valid_binary_rhythm():
     target = [1, 0, 1, 0, 1, 0, 1, 0]
 
