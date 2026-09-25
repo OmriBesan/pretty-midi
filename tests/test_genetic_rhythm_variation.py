@@ -83,6 +83,16 @@ def test_single_point_crossover_from_manual_run():
     ) == [1, 0, 1, 0, 1, 0, 1, 0]
 
 
+def test_single_point_crossover_cut_index_zero_gives_full_parent_b():
+    # cut_index=0 is allowed by SimpleGA (rand() % geneLength can yield 0).
+    # The child is a full copy of parent_b with no contribution from parent_a.
+    assert single_point_crossover(
+        [1, 1, 1, 1],
+        [0, 0, 0, 0],
+        0,
+    ) == [0, 0, 0, 0]
+
+
 def test_mutation_can_improve_candidate():
     assert mutate_rhythm([1, 0, 0, 0], 2, 1) == [1, 0, 1, 0]
 
